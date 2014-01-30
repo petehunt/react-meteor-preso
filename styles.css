@@ -1,0 +1,20 @@
+.cellX,
+.cellO,
+.cellEmpty {
+  border: 1px solid gray;
+  display: inline-block;
+  width: 64px;
+  height: 64px;
+}
+
+.cellX {
+  background: red;
+}
+
+.cellO {
+  background: blue;
+}
+
+.row {
+  line-height: 0;
+}
