@@ -21,7 +21,7 @@ Board.prototype.move = function(x, y) {
   var set = {};
 
   set['moves.' + x + ',' + y] = this.data.turn;
-  set.turn = this.data.turn === 'x' ? 'y' : 'x';
+  set.turn = this.data.turn === 'x' ? 'o' : 'x';
 
   BoardData.update(this.data._id, {
     $set: set
