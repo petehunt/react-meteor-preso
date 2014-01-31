@@ -1,9 +1,11 @@
 if (Meteor.isClient) {
   Meteor.startup(function() {
-    Deps.autorun(function() {
-      board = new Board("Pete's game");
-
+    function render() {
       React.renderComponent(renderBoard(board), document.body);
-    });
+    }
+
+    board = new Board("Pete's game", render);
+
+    render();
   });
 }

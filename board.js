@@ -1,16 +1,8 @@
-BoardData = new Meteor.Collection('BoardData');
-
-Board = function(name) {
-  this.data = BoardData.findOne({name: name});
-
-  if (!this.data) {
-    BoardData.insert({
-      name: name,
-      moves: {},
-      turn: 'x'
-    });
-    this.data = BoardData.findOne({name: name});
-  }
+Board = function(name, onChange) {
+  this.name = name;
+  this.moves = {};
+  this.turn = 'x';
+  this.onChange = onChange;
 };
 
 Board.prototype.move = function(x, y) {
@@ -18,21 +10,17 @@ Board.prototype.move = function(x, y) {
     throw new Error('Someone already moved there!');
   }
 
-  var set = {};
+  this.moves[x + ',' + y] = this.turn;
+  this.turn = this.turn === 'x' ? 'o' : 'x';
 
-  set['moves.' + x + ',' + y] = this.data.turn;
-  set.turn = this.data.turn === 'x' ? 'o' : 'x';
-
-  BoardData.update(this.data._id, {
-    $set: set
-  });
+  this.onChange();
 };
 
 Board.prototype.get = function(x, y) {
-  return this.data.moves[x + ',' + y];
+  return this.moves[x + ',' + y];
 };
 
 Board.prototype.reset = function() {
-  this.data.moves = {};
-  BoardData.update(this.data._id, {$set: {moves: {}}});
+  this.moves = {};
+  this.onChange();
 };
