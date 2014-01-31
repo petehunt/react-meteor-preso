@@ -32,7 +32,10 @@ if (Meteor.isClient) {
         rows,
         React.DOM.button({
           onClick: board.reset.bind(board)
-        }, 'Reset')
+        }, 'Reset'),
+        React.DOM.button({
+          onClick: replay
+        }, 'Instant replay')
       )
     );
   };
