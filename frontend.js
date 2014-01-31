@@ -15,7 +15,8 @@ if (Meteor.isClient) {
         }
         row.push(
           React.DOM.div({
-            className: className
+            className: className,
+            onClick: board.move.bind(board, rowIndex, colIndex)
           })
         );
       }
@@ -28,7 +29,10 @@ if (Meteor.isClient) {
     return (
       React.DOM.div(
         null,
-        rows
+        rows,
+        React.DOM.button({
+          onClick: board.reset.bind(board)
+        }, 'Reset')
       )
     );
   };
